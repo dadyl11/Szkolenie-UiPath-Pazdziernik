@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zadania praktyczne — Szkolenie UiPath — Dzień 3</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #222; background: #e8f1fb; padding: 20px; }
+    .page { max-width: 900px; margin: 0 auto; background: #fff; padding: 40px 50px; box-shadow: 0 2px 12px rgba(30,77,140,0.13); }
+    .header { display: flex; align-items: center; gap: 28px; border-bottom: 3px solid #5b9bd5; padding-bottom: 20px; margin-bottom: 30px; }
+    .header img { height: 70px; width: auto; flex-shrink: 0; }
+    .header-text { flex: 1; }
+    .header-text h1 { font-size: 22px; color: #1e4d8c; font-weight: 700; letter-spacing: 0.2px; margin-bottom: 3px; }
+    .header-text .subtitle { font-size: 13px; color: #5b9bd5; font-weight: 600; }
+    .header-text .subtitle-small { font-size: 12px; color: #999; margin-top: 2px; }
+    .day-header { background: #1e4d8c; color: #fff; font-size: 15px; font-weight: 700; padding: 10px 18px; margin: 30px 0 20px 0; border-radius: 4px; letter-spacing: 1.5px; text-transform: uppercase; }
+    .module-header { background: #eaf3fb; color: #1e4d8c; font-size: 13px; font-weight: 700; padding: 8px 16px; margin: 24px 0 14px 0; border-left: 4px solid #5b9bd5; border-radius: 0 3px 3px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+    .task-card { border: 1px solid #cde0f5; border-radius: 5px; margin-bottom: 20px; overflow: hidden; }
+    .task-card.intro { border-color: #b3d1f0; }
+    .task-title { background: #5b9bd5; color: #fff; font-weight: 700; font-size: 14px; padding: 9px 16px; }
+    .task-card.intro .task-title { background: #3a7abf; }
+    .task-topic { background: #f0f7ff; font-size: 12px; color: #2a6096; padding: 5px 16px; border-bottom: 1px solid #cde0f5; font-style: italic; }
+    .task-body { padding: 14px 16px; }
+    .task-body h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #1e4d8c; margin: 12px 0 6px 0; letter-spacing: 0.6px; }
+    .task-body h4:first-child { margin-top: 0; }
+    .task-body ol, .task-body ul { padding-left: 20px; }
+    .task-body ol li, .task-body ul li { margin-bottom: 4px; }
+    code { background: #eaf3fb; color: #1e4d8c; padding: 1px 5px; border-radius: 3px; font-family: 'Consolas', 'Courier New', monospace; font-size: 12px; border: 1px solid #cde0f5; }
+    pre { background: #f4f9ff; border: 1px solid #cde0f5; border-radius: 4px; padding: 10px 14px; font-family: 'Consolas', 'Courier New', monospace; font-size: 12px; margin: 8px 0; overflow-x: auto; white-space: pre-wrap; word-break: break-all; color: #1e4d8c; }
+    .hint-box { background: #e8f4fd; border-left: 3px solid #5b9bd5; padding: 8px 12px; margin: 8px 0; font-size: 13px; border-radius: 0 3px 3px 0; color: #1e4d8c; }
+    .bonus-tag { display: inline-block; background: #3a7abf; color: #fff; font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 3px; margin-right: 4px; vertical-align: middle; text-transform: uppercase; letter-spacing: 0.3px; }
+    table { border-collapse: collapse; width: 100%; font-size: 13px; margin: 8px 0; }
+    table th { background: #eaf3fb; font-weight: 700; padding: 6px 10px; border: 1px solid #cde0f5; text-align: left; color: #1e4d8c; }
+    table td { padding: 5px 10px; border: 1px solid #cde0f5; }
+    strong { color: #1e4d8c; }
+    .footer { text-align: center; font-size: 12px; color: #999; border-top: 2px solid #eaf3fb; margin-top: 36px; padding-top: 16px; }
+    .footer strong { color: #1e4d8c; }
+    @media print {
+      body { background: #fff; padding: 0; font-size: 12px; }
+      .page { box-shadow: none; padding: 20px 30px; max-width: 100%; }
+      .task-card { page-break-inside: avoid; break-inside: avoid; }
+      code { border: none; background: #f0f0f0; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <img src="../logo.png" alt="Robotivity logo">
+    <div class="header-text">
+      <h1>Zadania praktyczne — Szkolenie UiPath — Dzień 3</h1>
+      <div class="subtitle">Autoryzowany Partner UiPath</div>
+      <div class="subtitle-small">info@robotivity.pl &nbsp;·&nbsp; www.Robotivity.pl &nbsp;·&nbsp; tel.: +48 690 020 576</div>
+    </div>
+  </div>
+
+  <div class="day-header">Dzień 3</div>
+
+  <div class="module-header">Moduł 1 — Pliki i foldery</div>
+
+  <!-- Zadanie 1-3 (jeden proces, trzy workflowy) -->
+  <div class="task-card">
+    <div class="task-title">Zadanie 1–3 — Pliki i foldery: jeden proces z trzech workflowów</div>
+    <div class="task-topic">Folder: Dzien3_Zadanie1_3_Pliki_Foldery_Scalone/ · Temat: Invoke Workflow File + argumenty + Copy File / Move File + Unzip + Modify Text + Write CSV + Switch</div>
+    <div class="task-body">
+      <h4>Cel</h4>
+      <p>Zbuduj jeden proces z trzech osobnych workflowów, wywoływanych kolejno z <code>Main.xaml</code>. Robot kopiuje pliki Excel, rozpakowuje archiwum, tworzy raport CSV z opisem rozpakowanych plików i sortuje je do folderów wg rozszerzenia. Wynik jednego workflowu jest wejściem następnego.</p>
+
+      <h4>Pliki w folderze projektu</h4>
+      <ul>
+        <li><code>RaportFinalny.xlsx</code>, <code>RaportMiesieczny.xlsx</code> — pliki do skopiowania</li>
+        <li><code>Raporty.zip</code> — archiwum do rozpakowania i posortowania</li>
+      </ul>
+
+      <h4>Main.xaml</h4>
+      <ol>
+        <li>Pobierz bieżący katalog projektu (<code>Get Environment Variable</code>, zmienna <code>CurrentDirectory</code>) do <code>str_folder_projektu</code></li>
+        <li>Użytkownik wybiera folder docelowy (<code>Browse For Folder</code>) — wynik do <code>str_folder_kopii</code></li>
+        <li>Wywołaj <code>KopiujPliki.xaml</code> (<code>Invoke Workflow File</code>) i zaloguj wynik</li>
+        <li>Wywołaj <code>RozpakujIRaport.xaml</code> i zaloguj folder rozpakowany oraz ścieżkę raportu</li>
+        <li>Wywołaj <code>SortujPliki.xaml</code>, przekazując mu folder rozpakowany przez <code>RozpakujIRaport</code></li>
+      </ol>
+
+      <h4>Workflow 1 — KopiujPliki.xaml</h4>
+      <ol>
+        <li>Ustaw <code>out_bool_skopiowano_wszystko</code> na <code>True</code> (<code>Assign</code>)</li>
+        <li>Iteruj po plikach <code>*.xlsx</code> w <code>in_str_folder_zrodlowy</code> (<code>For Each File in Folder</code>)</li>
+        <li>W pętli: zaloguj nazwę pliku (<code>Log Message</code>) i skopiuj plik do <code>in_str_folder_docelowy</code> (<code>Copy File</code>, Overwrite = True)</li>
+        <li>Sprawdź, czy kopia istnieje (<code>Get Local File or Folder</code>, PathType = File, ścieżka z <code>Path.Combine</code>) — wynik do <code>bool_skopiowano</code> i do logu</li>
+        <li>Zaktualizuj wynik zbiorczy: <code>out_bool_skopiowano_wszystko AndAlso bool_skopiowano</code></li>
+      </ol>
+
+      <h4>Workflow 2 — RozpakujIRaport.xaml</h4>
+      <ol>
+        <li>Ustaw <code>out_str_sciezka_csv</code> na <code>Path.Combine(in_str_folder_projektu, "detale_plikow.csv")</code></li>
+        <li>Rozpakuj <code>Raporty.zip</code> z folderu projektu (<code>Extract/Unzip Files</code>, DestinationFolder = folder projektu, ExtractToADedicatedFolder = True); folder wynikowy trafia do <code>dirinfo_folder_rozpakowane</code></li>
+        <li>Przypisz <code>out_str_folder_rozpakowane</code> = <code>dirinfo_folder_rozpakowane.FullName</code></li>
+        <li>Stwórz tabelę z kolumnami <code>Nazwa pliku</code>, <code>Folder</code>, <code>Rozszerzenie</code>, <code>Rozmiar</code> (<code>Build Data Table</code>)</li>
+        <li>Iteruj po rozpakowanych plikach (<code>For Each File in Folder</code>):
+          <ul>
+            <li><code>Modify Text</code> — nazwa pliku bez rozszerzenia (Find and replace: <code>CurrentFile.Extension</code> → pusty tekst) do <code>str_nazwa_pliku</code></li>
+            <li><code>Modify Text</code> — rozszerzenie bez kropki, wielkimi literami (Find and replace: <code>.</code> → pusty tekst, następnie To upper) do <code>str_rozszerzenie</code></li>
+            <li><code>Add Data Row</code>: <code>{str_nazwa_pliku, CurrentFile.Folder, str_rozszerzenie, CurrentFile.SizeInKB.ToString}</code></li>
+          </ul>
+        </li>
+        <li>Zapisz tabelę do pliku <code>out_str_sciezka_csv</code> (<code>Write CSV</code>)</li>
+      </ol>
+      <div class="hint-box">
+        <strong>Dlaczego CSV leży w folderze projektu, a nie w rozpakowanym?</strong> Następny workflow sortuje wszystkie pliki z rozpakowanego folderu. Gdyby raport tam leżał, trafiłby do sortowania razem z resztą.
+      </div>
+
+      <h4>Workflow 3 — SortujPliki.xaml</h4>
+      <ol>
+        <li>Stwórz tablicę nazw folderów: <code>{"PDF", "DOCX", "XLSX"}</code> (<code>Assign</code>)</li>
+        <li>W pętli <code>For Each</code> po tablicy stwórz folder <code>Path.Combine(in_str_folder_z_plikami, currentText)</code> (<code>Create Folder</code>) i zaloguj jego nazwę (<code>ilr_stworzony_folder.GetName</code>)</li>
+        <li>W pętli <code>For Each File in Folder</code> po <code>in_str_folder_z_plikami</code> (IncludeSubDirectories = False):
+          <ul>
+            <li><code>Switch&lt;String&gt;</code> na <code>CurrentFile.Extension.Replace(".", "").ToUpper</code></li>
+            <li>Case <code>PDF</code>, <code>DOCX</code>, <code>XLSX</code> → <code>Move File</code> do folderu o tej samej nazwie (Overwrite = True)</li>
+            <li>Default → <code>Log Message</code> poziomu Warn z nazwą pliku; plik zostaje na miejscu</li>
+          </ul>
+        </li>
+        <li>Zaloguj: <code>"Pliki przeniesione"</code></li>
+      </ol>
+
+      <h4>Argumenty</h4>
+      <table>
+        <tr><th>Workflow</th><th>Argument</th><th>Kierunek</th><th>Typ</th><th>Skąd / dokąd w Main</th></tr>
+        <tr><td>KopiujPliki</td><td>in_str_folder_zrodlowy</td><td>In</td><td>String</td><td>str_folder_projektu</td></tr>
+        <tr><td>KopiujPliki</td><td>in_str_folder_docelowy</td><td>In</td><td>String</td><td>str_folder_kopii</td></tr>
+        <tr><td>KopiujPliki</td><td>out_bool_skopiowano_wszystko</td><td>Out</td><td>Boolean</td><td>bool_skopiowano_wszystko</td></tr>
+        <tr><td>RozpakujIRaport</td><td>in_str_folder_projektu</td><td>In</td><td>String</td><td>str_folder_projektu</td></tr>
+        <tr><td>RozpakujIRaport</td><td>out_str_folder_rozpakowane</td><td>Out</td><td>String</td><td>str_folder_rozpakowane</td></tr>
+        <tr><td>RozpakujIRaport</td><td>out_str_sciezka_csv</td><td>Out</td><td>String</td><td>str_sciezka_csv</td></tr>
+        <tr><td>SortujPliki</td><td>in_str_folder_z_plikami</td><td>In</td><td>String</td><td>str_folder_rozpakowane</td></tr>
+      </table>
+      <div class="hint-box">
+        <strong>Wskazówka:</strong> W oknie <code>Invoke Workflow File</code> kierunek (In / Out) i typ argumentu muszą zgadzać się z deklaracją w wywoływanym workflowie. Wartość argumentu typu Out dostajesz do zmiennej w <code>Main</code> dopiero po zakończeniu wywołania.
+      </div>
+
+      <h4>Zmienne</h4>
+      <table>
+        <tr><th>Workflow</th><th>Nazwa</th><th>Typ</th><th>Opis</th></tr>
+        <tr><td>Main</td><td>str_folder_projektu</td><td>String</td><td>Bieżący katalog projektu</td></tr>
+        <tr><td>Main</td><td>str_folder_kopii</td><td>String</td><td>Folder wybrany przez użytkownika</td></tr>
+        <tr><td>Main</td><td>bool_skopiowano_wszystko</td><td>Boolean</td><td>Czy wszystkie pliki skopiowano</td></tr>
+        <tr><td>Main</td><td>str_folder_rozpakowane</td><td>String</td><td>Pełna ścieżka rozpakowanego folderu</td></tr>
+        <tr><td>Main</td><td>str_sciezka_csv</td><td>String</td><td>Ścieżka raportu CSV</td></tr>
+        <tr><td>KopiujPliki</td><td>bool_skopiowano</td><td>Boolean</td><td>Wynik sprawdzenia dla jednego pliku</td></tr>
+        <tr><td>RozpakujIRaport</td><td>dirinfo_folder_rozpakowane</td><td>DirectoryInfo</td><td>Info o folderze z rozpakowanymi plikami</td></tr>
+        <tr><td>RozpakujIRaport</td><td>dt_detale_plikow</td><td>DataTable</td><td>Tabela z opisem plików</td></tr>
+        <tr><td>RozpakujIRaport</td><td>str_nazwa_pliku</td><td>String</td><td>Nazwa pliku bez rozszerzenia</td></tr>
+        <tr><td>RozpakujIRaport</td><td>str_rozszerzenie</td><td>String</td><td>Rozszerzenie (wielkie litery, bez kropki)</td></tr>
+        <tr><td>SortujPliki</td><td>arr_foldery_docelowe</td><td>String[]</td><td>Nazwy folderów docelowych</td></tr>
+        <tr><td>SortujPliki</td><td>ilr_stworzony_folder</td><td>ILocalResource</td><td>Referencja do stworzonego folderu</td></tr>
+      </table>
+
+      <h4>Efekt końcowy</h4>
+      <ul>
+        <li>W folderze wybranym przez użytkownika leżą kopie plików <code>*.xlsx</code> z folderu projektu</li>
+        <li>W folderze projektu jest folder <code>Raporty</code> (nazwa wg archiwum) oraz plik <code>detale_plikow.csv</code> z kolumnami <code>Nazwa pliku</code>, <code>Folder</code>, <code>Rozszerzenie</code>, <code>Rozmiar</code></li>
+        <li>W folderze <code>Raporty</code> pliki są ułożone w podfolderach <code>PDF</code>, <code>DOCX</code> i <code>XLSX</code>; pliki o innym rozszerzeniu zostają w <code>Raporty</code>, a w logu pojawia się ostrzeżenie</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="module-header">Moduł 2 — Flowchart: Biała Lista (CEIDG)</div>
+
+  <!-- Ćwiczenie 4 -->
+  <div class="task-card intro">
+    <div class="task-title">Ćwiczenie 4 — Weryfikacja NIP na Białej Liście</div>
+    <div class="task-topic">Folder: Dzien3_Zadanie4_Flowchart_CEIDG/ · Temat: Flowchart + pętla + Check App State + DataTable + Write Cell</div>
+    <div class="task-body">
+      <h4>Opis zadania</h4>
+      <ol>
+        <li>Sprawdź czy plik <code>CEIDG.xlsx</code> istnieje (<code>File Exists</code>)</li>
+        <li><code>FlowDecision</code> — plik istnieje → kontynuuj; nie → koniec</li>
+        <li>Wczytaj plik do DataTable (<code>Read Range</code>)</li>
+        <li>Otwórz stronę (<code>https://podatki-arch.mf.gov.pl/wykaz-podatnikow-vat-wyszukiwarka/</code>)</li>
+        <li>Pętla (strzałka powrotna w Flowchart):
+          <ul>
+            <li>Inkrementuj licznik</li>
+            <li><code>FlowDecision</code> — <code>int_licznik &gt; int_liczba_wierszy</code> → koniec</li>
+            <li>Pobierz bieżący wiersz tabeli do <code>row_wiersz_tabeli</code>: <code>dt_CEIDG.Rows(int_licznik - 1)</code></li>
+            <li>Wpisz NIP z tego wiersza: <code>row_wiersz_tabeli.Item("NIP").ToString</code></li>
+            <li>Kliknij "Szukaj"</li>
+            <li><code>Check App State</code> — sprawdź wynik weryfikacji</li>
+            <li>Zapisz wynik do komórki w pliku Excel (<code>Write Cell</code>, kolumna <code>F</code>, wiersz <code>int_licznik + 1</code>): <code>"Figuruje na bialej liscie"</code> albo <code>"Nie figuruje na bialej liscie"</code></li>
+          </ul>
+        </li>
+        <li>Po pętli zamknij stronę (<code>Use Application/Browser</code>, CloseMode = <code>Always</code>)</li>
+      </ol>
+      <div class="hint-box">
+        <strong>Wskazówka:</strong> W Flowchart pętla jest bardziej widoczna niż w Sequence — strzałka powrotna do kroku z inkrementacją licznika tworzy pętlę.
+      </div>
+      <h4>Zmienne</h4>
+      <table>
+        <tr><th>Nazwa</th><th>Typ</th><th>Opis</th></tr>
+        <tr><td>bool_plik_istnieje</td><td>Boolean</td><td>Czy plik CEIDG.xlsx istnieje</td></tr>
+        <tr><td>dt_CEIDG</td><td>DataTable</td><td>Dane z pliku CEIDG</td></tr>
+        <tr><td>int_liczba_wierszy</td><td>Int32</td><td>Liczba wierszy w tabeli</td></tr>
+        <tr><td>int_licznik</td><td>Int32</td><td>Bieżący numer wiersza</td></tr>
+        <tr><td>row_wiersz_tabeli</td><td>DataRow</td><td>Bieżący wiersz tabeli (zmienna lokalna kroku przetwarzania)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="module-header">Moduł 3 — Orchestrator (Assets, Queues, Dispatcher/Performer)</div>
+
+  <!-- Zadanie 5 -->
+  <div class="task-card">
+    <div class="task-title">Zadanie 5 — Logowanie z Orchestratora</div>
+    <div class="task-topic">Folder: Dzien3_Zadanie5_App_Logowanie/ · Temat: Get Credential + SecureString + Pick/PickBranch</div>
+    <div class="task-body">
+      <h4>Opis zadania</h4>
+      <p>Całość robisz w jednym workflowie <code>Robotivity_App_Logowanie.xaml</code>, który wywołujesz z <code>Main.xaml</code> (<code>Invoke Workflow File</code>, bez argumentów). W zadaniu 7 ten sam workflow dostaje argumenty, więc będzie to osobna, rozbudowana wersja pliku.</p>
+      <ol>
+        <li>Pobierz login i hasło: <code>Get Credential</code> → Asset: <code>Robotivity_App_Credentials</code>, FolderPath: <code>Robotivity2</code></li>
+        <li>Pobierz ścieżkę: <code>Get Asset</code> → Asset: <code>Sciezka_Aplikacji</code>, FolderPath: <code>Robotivity2</code></li>
+        <li>Zamknij Robotivity (<code>Kill Process "robotivity"</code>)</li>
+        <li>Otwórz Robotivity (<code>Use Application/Browser</code>; ścieżka do aplikacji z zmiennej <code>str_sciezka_aplikacji</code>)</li>
+        <li>Wpisz login (<code>Type Into</code> → Text)</li>
+        <li>Wpisz hasło (<code>Type Into</code> → <strong>SecureText!</strong>)</li>
+        <li>Kliknij "LOG IN"</li>
+        <li>Użyj aktywności <code>Pick</code> z dwoma <code>PickBranch</code>:
+          <ul>
+            <li><strong>Branch 1 (Zalogowano):</strong> Trigger: <code>Check App State</code> na przycisk "EXIT" → Log: "Zalogowano do programu"</li>
+            <li><strong>Branch 2 (Błędne hasło):</strong> Trigger: <code>Check App State</code> na tekst "The User name or password you enter is incorrect" → Click "OK" → Log (Warn): "Nie zalogowano do aplikacji. Sprawdz haslo"</li>
+          </ul>
+        </li>
+      </ol>
+      <div class="hint-box">
+        <strong>Pick/PickBranch</strong> — aktywność "wyścigowa": pierwsza gałąź, której trigger się spełni, wygrywa. Używamy jej zamiast pojedynczego Check App State, bo mamy dwa możliwe scenariusze.<br>
+        <strong>Uwaga:</strong> W Type Into dla hasła używaj właściwości <code>SecureText</code> (nie <code>Text</code>!) — hasło nigdy nie będzie widoczne w logach.
+      </div>
+      <h4>Zmienne</h4>
+      <table>
+        <tr><th>Nazwa</th><th>Typ</th><th>Opis</th></tr>
+        <tr><td>str_username</td><td>String</td><td>Login z Credential</td></tr>
+        <tr><td>sstr_password</td><td>SecureString</td><td>Hasło z Credential</td></tr>
+        <tr><td>str_sciezka_aplikacji</td><td>String</td><td>Ścieżka do Robotivity.exe (z Get Asset)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Zadanie 6 -->
+  <div class="task-card">
+    <div class="task-title">Zadanie 6 — Dispatcher</div>
+    <div class="task-topic">Folder: Dzien3_Zadanie6_Dispatcher/ · Temat: Bulk Add Queue Items + Add Queue Item z referencjami</div>
+    <div class="task-body">
+      <h4>Opis zadania</h4>
+      <ol>
+        <li>Wczytaj <code>Transactions.xlsx</code> w <code>Try Catch</code>:
+          <ul>
+            <li><strong>Try:</strong> <code>Read Range Workbook</code> (AddHeaders = True)</li>
+            <li><strong>Catch:</strong> <code>Kill Process "EXCEL"</code> → <code>Delay 2s</code> → ponowny Read Range</li>
+          </ul>
+        </li>
+      </ol>
+      <p><strong>Sposób 1 — Bulk Add (hurtowy, zakomentowany w projekcie):</strong></p>
+      <ul>
+        <li><code>Bulk Add Queue Items</code> — QueueName: <code>Robotivity_Bulk</code>, FolderPath: <code>Robotivity2</code></li>
+      </ul>
+      <p><strong>Sposób 2 — Add Queue Item z referencjami (aktywny):</strong></p>
+      <ol>
+        <li>W pętli <code>For Each Row</code>:
+          <ul>
+            <li><code>Add Queue Item</code> — QueueName: <code>Robitivity_Single</code> (tak, z literówką: dokładnie ta nazwa jest w projektach i w Orchestratorze), FolderPath: <code>Robotivity2</code></li>
+            <li>Reference: <code>CurrentRow.Item("CashIn").ToString + "_" + CurrentRow.Item("OnUsCheck").ToString</code></li>
+            <li>ItemInformation: CashIn, OnUsCheck, NotOnUsCheck</li>
+          </ul>
+        </li>
+        <li>Log Message: "Transakcje dodane do kolejki"</li>
+      </ol>
+      <div class="hint-box">
+        <strong>Wskazówka:</strong> Try Catch wokół Read Range — Excel może blokować plik; w Catch: Kill Process EXCEL + Delay + ponów. Bulk Add jest szybszy, ale nie pozwala nadać indywidualnych referencji.
+      </div>
+      <h4>Zmienne</h4>
+      <table>
+        <tr><th>Nazwa</th><th>Typ</th><th>Opis</th></tr>
+        <tr><td>dt_transakcje</td><td>DataTable</td><td>Dane z Transactions.xlsx</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Zadanie 7 -->
+  <div class="task-card">
+    <div class="task-title"> <span class="bonus-tag">Opcjonalne</span> Zadanie 7 — Performer</div>
+    <div class="task-topic">Folder: Dzien3_Zadanie7_Performer/ · Temat: Flowchart + Queue + Robotivity + obsługa błędów</div>
+    <div class="task-body">
+      <h4>Opis zadania (Flowchart)</h4>
+      <ol>
+        <li><code>Get Asset</code> — pobierz <code>Sciezka_Aplikacji</code> z folderu <code>Robotivity2</code></li>
+        <li><code>Invoke Workflow File</code> — <code>Robotivity_App_Logowanie.xaml</code> (argumenty: <code>str_sciezka_aplikacji</code> in, <code>out_bool_zalogowano</code> out). To rozbudowana wersja workflowu z zadania 5: ścieżka przychodzi z <code>Main</code> (nie z <code>Get Asset</code> wewnątrz), a workflow ustawia <code>out_bool_zalogowano</code> na <code>True</code> po udanym logowaniu i na <code>False</code> po błędnym haśle</li>
+        <li><code>FlowDecision</code> — <code>out_bool_zalogowano</code>?
+          <ul>
+            <li>False → "Koniec Pracy Robota" (If: zalogowano → log / Else → log "Nie zalogowano") + <code>Kill Process "robotivity"</code></li>
+            <li>True → kontynuuj</li>
+          </ul>
+        </li>
+        <li>Pętla (strzałka powrotna):
+          <ul>
+            <li><code>Try Catch</code>: <code>Get Transaction Item</code> z kolejki <code>Robitivity_Single</code> (FolderPath: <code>Robotivity2</code>)
+              <ul><li>Catch: <code>qi_transaction_item = Nothing</code></li></ul>
+            </li>
+            <li><code>FlowDecision</code> — <code>qi_transaction_item IsNot Nothing</code>?</li>
+            <li>True → Log "Reference: " + Reference → <code>Invoke Workflow File</code> <code>Procesowanie_Transakcji.xaml</code> (argumenty: <code>in_sciezka_aplikacji</code> i <code>qi_transaction_item</code>)</li>
+            <li>W <code>Procesowanie_Transakcji.xaml</code>: wyciągnij dane z <code>qi_transaction_item.SpecificContent</code>, sprawdź <code>.IsNumeric</code> dla trzech pól; jeśli wszystkie liczbowe — Type Into + Click Accept i <code>Set Transaction Status = Successful</code>, w przeciwnym razie <code>Set Transaction Status = Failed</code> (ErrorType: Business)</li>
+          </ul>
+        </li>
+      </ol>
+      <div class="hint-box">
+        <strong>Wskazówka:</strong> Logowanie i procesowanie są wydzielone do osobnych plików .xaml (reużywalność). <code>Catch</code> wokół Get Transaction Item ustawia <code>qi_transaction_item = Nothing</code> dla każdego wyjątku, więc pętla kończy się zarówno gdy kolejka jest pusta, jak i gdy pobranie elementu się nie powiedzie (np. problem z połączeniem). Złe hasło nie jest tu błędem systemowym: workflow logowania zwraca <code>False</code>, robot loguje "Nie zalogowano" i kończy pracę.
+      </div>
+      <h4>Zmienne</h4>
+      <table>
+        <tr><th>Nazwa</th><th>Typ</th><th>Opis</th></tr>
+        <tr><td>out_bool_zalogowano</td><td>Boolean</td><td>Czy logowanie się powiodło (z Invoke Workflow)</td></tr>
+        <tr><td>str_sciezka_aplikacji</td><td>String</td><td>Ścieżka do Robotivity (z Get Asset)</td></tr>
+        <tr><td>qi_transaction_item</td><td>QueueItem</td><td>Bieżąca transakcja z kolejki</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Bonus - Dashboard -->
+  <div class="task-card">
+    <div class="task-title"><span class="bonus-tag">Bonus</span> Zadanie dodatkowe — Dashboard transakcji</div>
+    <div class="task-topic">Temat: Podsumowanie przetworzonych transakcji w raporcie Excel</div>
+    <div class="task-body">
+      <h4>Opis zadania</h4>
+      <ol>
+        <li>Na początku procesu: <code>int_successful = 0</code>, <code>int_failed_business = 0</code></li>
+        <li>W Performerze po Set Transaction Status: zlicz sukcesy/porażki</li>
+        <li>Na końcu: <code>Build Data Table</code> → <code>Add Data Row</code> → <code>Write Range</code> do <code>Dashboard_transakcji.xlsx</code></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Bonus - Monitoring folderu -->
+  <div class="task-card">
+    <div class="task-title"><span class="bonus-tag">Bonus</span> Zadanie dodatkowe — Monitoring folderu z raportem email</div>
+    <div class="task-topic">Temat: For Each File in Folder + CreationTime + SMTP (łączenie Dnia 2 z Dniem 3)</div>
+    <div class="task-body">
+      <h4>Opis zadania</h4>
+      <ol>
+        <li>Monitoruj folder "Raporty" — sprawdź pliki <code>*.xlsx</code> utworzone w ostatnich 24h</li>
+        <li>Użyj: <code>dat_granica = Now.AddHours(-24)</code></li>
+        <li>Zbierz nazwy nowych plików do <code>List(Of String)</code></li>
+        <li>Jeśli są nowe pliki — wyślij email z listą przez SMTP</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="footer">
+    <strong>Robotivity®</strong> — Autoryzowany Partner UiPath<br>
+    info@robotivity.pl · www.Robotivity.pl
+  </div>
+
+</div>
+</body>
+</html>
